@@ -1,0 +1,61 @@
+{
+  "name": "react-native-step-by-step-process",
+  "version": "1.2.6",
+  "description": "React Native Step by Step Process Library",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harshilmiyani/react-native-step-by-step-process.git"
+  },
+  "homepage": "https://harshilmiyani.github.io",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf dist/ && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
+    "rollup": "rollup -c rollup.config.js --bundleConfigAsCjs"
+  },
+  "keywords": [
+    "React",
+    "Native",
+    "Step",
+    "by",
+    "Step",
+    "Process",
+    "rn",
+    "Process",
+    "Step",
+    "React",
+    "Native",
+    "Process"
+  ],
+  "author": "Harshil Miyani",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "18.1.0",
+    "react-native": "0.70.3"
+  },
+  "dependencies": {
+    "react-native-responsive-fontsize": "^0.5.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.13.0",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@types/react-native": "^0.71.2",
+    "metro-react-native-babel-preset": "^0.75.0",
+    "rollup": "^3.15.0",
+    "rollup-plugin-dts": "^5.2.0",
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "tslib": "^2.5.0",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "typescript": "^4.9.5"
+  }
+}
