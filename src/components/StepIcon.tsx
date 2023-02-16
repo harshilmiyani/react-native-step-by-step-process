@@ -133,8 +133,8 @@ const StepIcon = ({
               },
             ]}
             numberOfLines={2}
-            minimumFontScale={0.8}
-            adjustsFontSizeToFit={true}
+            // minimumFontScale={0.9}
+            // adjustsFontSizeToFit={true}
           >
             {label}
           </Text>
