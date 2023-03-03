@@ -8,6 +8,7 @@ import {
   TextStyle,
   StyleProp,
   ViewStyle,
+  Platform,
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { ProcessContext } from "../context/ProcessContextProvider";
@@ -114,6 +115,7 @@ const StepIcon = ({
             styles.labelContainer,
             {
               alignItems: "center",
+              flex: 1,
               height: (width * 10) / 100,
               maxHeight: 50,
             },
@@ -124,7 +126,7 @@ const StepIcon = ({
               styles.label,
               labelStyle,
               {
-                width: width / totalSteps - 4,
+                width: totalSteps > 8 ? width / 7 - 4 : width / totalSteps - 4,
                 color: isActiveStep
                   ? labelStyle?.color
                     ? labelStyle?.color
@@ -133,8 +135,8 @@ const StepIcon = ({
               },
             ]}
             numberOfLines={2}
-            // minimumFontScale={0.9}
-            // adjustsFontSizeToFit={true}
+            minimumFontScale={0.9}
+            adjustsFontSizeToFit={Platform.OS === "ios" ? true : false}
           >
             {label}
           </Text>
@@ -169,7 +171,7 @@ const styles = StyleSheet.create({
   },
   labelContainer: {
     width: "100%",
-    paddingVertical: "5%",
+    paddingTop: "2%",
   },
   label: {
     textAlign: "center",

@@ -3,7 +3,6 @@ import React, {
   isValidElement,
   useEffect,
   useState,
-  Children,
   useContext,
   ReactNode,
   ReactElement,
@@ -39,12 +38,12 @@ export interface ProcessFlowProps
   onPrevious: (previousStepIndex: number) => {};
   onNext: (nextStepIndex: number) => {};
   onSubmit?: () => {};
-  nextBtnText?: string;
-  previousBtnText?: string;
-  finishBtnText?: string;
-  nextBtnDisabled?: boolean;
-  previousBtnDisabled?: boolean;
-  removeBtnRow?: boolean;
+  nextButtonText?: string;
+  previousButtonText?: string;
+  finishButtonText?: string;
+  nextButtonDisabled?: boolean;
+  previousButtonDisabled?: boolean;
+  removeButtonRow?: boolean;
   footerComponent?: ReactNode;
 }
 
@@ -59,16 +58,16 @@ const ProcessFlow = ({
   onNext,
   onPrevious,
   onSubmit,
-  nextBtnStyle,
-  nextBtnText = "Next",
-  nextBtnTextStyle,
-  previousBtnStyle,
-  previousBtnText = "Previous",
-  previousBtnTextStyle,
-  finishBtnText = "Submit",
-  nextBtnDisabled = false,
-  previousBtnDisabled = false,
-  removeBtnRow = false,
+  nextButtonStyle,
+  nextButtonText = "Next",
+  nextButtonTextStyle,
+  previousButtonStyle,
+  previousButtonText = "Previous",
+  previousButtonTextStyle,
+  finishButtonText = "Submit",
+  nextButtonDisabled = false,
+  previousButtonDisabled = false,
+  removeButtonRow = false,
   footerComponent,
   labelStyle,
   ...props
@@ -76,28 +75,12 @@ const ProcessFlow = ({
   const { activeStep, currentStep, numberOfSteps, totalSteps } =
     useContext(ProcessContext);
   const { width } = useWindowDimensions();
-  const [renderChildren, setRenderChildren] = useState<
-    Array<ReactElement<ProcessFlowProps>>
-  >([]);
   const [stepIconWidthOffSet, setStepIconWidthOffSet] = useState<
     Array<{
       layout: LayoutRectangle;
       target?: number | null | undefined;
     }>
   >([]);
-
-  useEffect(() => {
-    let countChildren = 0;
-    const tmpRenderChildren: Array<ReactElement<ProcessFlowProps>> = [];
-    Children.map(children, (child: ReactElement<ProcessFlowProps, any>) => {
-      if (child && isValidElement(child) && !child?.props?.hide) {
-        countChildren++;
-        tmpRenderChildren.push(child);
-      }
-    });
-    setRenderChildren(tmpRenderChildren);
-    numberOfSteps(countChildren);
-  }, [children, numberOfSteps]);
 
   useEffect(() => {
     if (activeStep >= 0 && activeStep < totalSteps) {
@@ -112,6 +95,16 @@ const ProcessFlow = ({
   //     currentStep(totalSteps - 1);
   //   }
   // }, [currentStep, isComplete, totalSteps]);
+
+  const renderChildren = React.useMemo(() => {
+    const tmp = React.Children.map(children, (ele) => {
+      if (ele && React.isValidElement(ele) && !ele?.props?.hide) {
+        return React.cloneElement(ele);
+      }
+    });
+    numberOfSteps(tmp?.length);
+    return tmp;
+  }, [children, numberOfSteps]);
 
   const renderStepIcons = () => {
     let step = [];
@@ -150,23 +143,8 @@ const ProcessFlow = ({
       );
       i++;
     }
-
     return step;
   };
-
-  //100 - [[100 - circleWidth * totalSteps] / totalSteps]},
-  // let indicatorWidth =
-  //   width - stepIconWidthOffSet[setStepIconWidthOffSet.length - 1];
-  // (width * (100 - [[100 - 10 * totalSteps] / totalSteps])) / 100;
-  // let filledIndicator =
-  //   (width *
-  //     (parseFloat([10 * activeStep]) +
-  //       parseFloat(
-  //         activeStep !== 0
-  //           ? [(100 - 10 * totalSteps) / totalSteps] * activeStep
-  //           : 0,
-  //       ))) /
-  //   100;
 
   const onNextStep = async () => {
     const isThereError = onNext && !!(await onNext(activeStep + 1));
@@ -305,29 +283,40 @@ const ProcessFlow = ({
             </>
           ) : undefined
         }
-        removeBtnRow={
-          !removeBtnRow && !renderChildren[activeStep]?.props?.removeBtnRow
+        removeButtonRow={
+          !removeButtonRow &&
+          !renderChildren[activeStep]?.props?.removeButtonRow
         }
         hidePreviousButton={
           !renderChildren[activeStep]?.props?.hidePreviousButton &&
           (!(activeStep === 0) ||
             renderChildren[activeStep]?.props?.showFirstStepPreviousButton)
         }
-        previousBtnStyle={previousBtnStyle}
-        previousBtnText={previousBtnText ? previousBtnText : ""}
-        previousBtnDisabled={previousBtnDisabled}
+        previousButtonStyle={previousButtonStyle}
+        previousButtonText={
+          previousButtonText
+            ? renderChildren[activeStep]?.props?.previousButtonText
+              ? renderChildren[activeStep]?.props?.previousButtonText
+              : previousButtonText
+            : ""
+        }
+        previousButtonDisabled={previousButtonDisabled}
         onPreviousStep={onPreviousStep}
-        previousBtnTextStyle={previousBtnTextStyle}
+        previousButtonTextStyle={previousButtonTextStyle}
         hideNextButton={!renderChildren[activeStep]?.props?.hideNextButton}
-        nextBtnStyle={nextBtnStyle}
-        nextBtnTitle={
-          activeStep === totalSteps - 1 ? finishBtnText : nextBtnText
+        nextButtonStyle={nextButtonStyle}
+        nextButtonTitle={
+          activeStep === totalSteps - 1
+            ? finishButtonText
+            : renderChildren[activeStep]?.props?.nextButtonText
+            ? renderChildren[activeStep]?.props?.nextButtonText
+            : nextButtonText
         }
         onNextStep={
           activeStep === totalSteps - 1 ? onSubmitHandler : onNextStep
         }
-        nextBtnTextStyle={nextBtnTextStyle}
-        nextBtnDisabled={nextBtnDisabled}
+        nextButtonTextStyle={nextButtonTextStyle}
+        nextButtonDisabled={nextButtonDisabled}
       />
     </SafeAreaView>
   );

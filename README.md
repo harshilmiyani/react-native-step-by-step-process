@@ -128,12 +128,12 @@ const ProcessStepsScreen = () => {
       <Process.ProcessFlow
         activeStepIconColor={'#60a4ac'}
         labelStyle={{color: '#60a4ac'}}
-        nextBtnStyle={{backgroundColor: '#60a4ac'}}
-        nextBtnTextStyle={{color: 'black'}}
-        previousBtnStyle={{backgroundColor: '#60a4ac'}}
-        previousBtnTextStyle={{color: 'black'}}
-        nextBtnText={t('txtProceed')}
-        previousBtnText={t('back')}
+        nextButtonStyle={{backgroundColor: '#60a4ac'}}
+        nextButtonTextStyle={{color: 'black'}}
+        previousButtonStyle={{backgroundColor: '#60a4ac'}}
+        previousButtonTextStyle={{color: 'black'}}
+        nextButtonText={t('txtProceed')}
+        previousButtonText={t('back')}
         onNext={onPressNextInStep}>
         <Process.Step
             label={t('txtFillStepDate')}
@@ -182,16 +182,16 @@ export default ProcessStepsScreen;
 | onNext                      | Function called when the next step button is pressed     | null                                | Func    |
 | onPrevious                  | Function called when the previous step button is pressed | null                                | Func    |
 | onSubmit                    | Function called when the submit step button is pressed   | null                                | Func    |
-| nextBtnText                 | Text to display inside the next button                   | Next                                | String  |
-| previousBtnText             | Text to display inside the previous button               | Previous                            | String  |
-| finishBtnText               | Text to display inside the button on the last step       | Submit                              | String  |
-| nextBtnStyle                | Style object to provide to the next/finish buttons       | { textAlign: 'center', padding: 8 } | Object  |
-| nextBtnTextStyle            | Style object to provide to the next/finish button text   | { color: '#007aff', fontSize: 18 }  | Object  |
-| nextBtnDisabled             | Value to disable/enable next button                      | false                               | Boolean |
-| previousBtnStyle            | Style object to provide to the previous button           | { textAlign: 'center', padding: 8 } | Object  |
-| previousBtnTextStyle        | Style object to provide to the previous button text      | { color: '#007aff', fontSize: 18 }  | Object  |
-| previousBtnDisabled         | Value to disable/enable previous button                  | false                               | Boolean |
-| removeBtnRow                | Used to render the process step without the button row   | false                               | Boolean |
+| nextButtonText              | Text to display inside the next button                   | Next                                | String  |
+| previousButtonText          | Text to display inside the previous button               | Previous                            | String  |
+| finishButtonText            | Text to display inside the button on the last step       | Submit                              | String  |
+| nextButtonStyle             | Style object to provide to the next/finish buttons       | { textAlign: 'center', padding: 8 } | Object  |
+| nextButtonTextStyle         | Style object to provide to the next/finish button text   | { color: '#007aff', fontSize: 18 }  | Object  |
+| nextButtonDisabled          | Value to disable/enable next button                      | false                               | Boolean |
+| previousButtonStyle         | Style object to provide to the previous button           | { textAlign: 'center', padding: 8 } | Object  |
+| previousButtonTextStyle     | Style object to provide to the previous button text      | { color: '#007aff', fontSize: 18 }  | Object  |
+| previousButtonDisabled      | Value to disable/enable previous button                  | false                               | Boolean |
+| removeButtonRow             | Used to render the process step without the button row   | false                               | Boolean |
 | showFirstStepPreviousButton | Used to render the previous button in first step         | false                               | Boolean |
 
 ## Contributing

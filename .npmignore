@@ -1,5 +1,6 @@
 node_modules
 assets
 src
+types
 
 rollup.config.js
