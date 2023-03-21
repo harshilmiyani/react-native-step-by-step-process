@@ -1,6 +1,6 @@
 {
   "name": "react-native-step-by-step-process",
-  "version": "1.2.7",
+  "version": "1.4.0",
   "description": "React Native Step by Step Process Library",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -13,13 +13,13 @@
     "type": "git",
     "url": "https://github.com/harshilmiyani/react-native-step-by-step-process.git"
   },
-  "homepage": "https://harshilmiyani.github.io",
+  "homepage": "https://github.com/harshilmiyani/react-native-step-by-step-process#readme",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf dist/ && npm run build:esm && npm run build:cjs",
     "build:esm": "tsc",
     "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
-    "rollup": "rollup -c rollup.config.js --bundleConfigAsCjs"
+    "rollup": "tsc && rollup -c rollup.config.js --bundleConfigAsCjs"
   },
   "keywords": [
     "react",
@@ -61,7 +61,6 @@
     "metro-react-native-babel-preset": "^0.75.0",
     "@types/node": "^18.13.0",
     "@types/react": "^18.0.27",
-    "@types/react-dom": "^18.0.10",
     "@types/react-native": "^0.71.2",
     "rollup": "^3.15.0",
     "rollup-plugin-dts": "^5.2.0",
