@@ -23,6 +23,7 @@ export interface StepIconProps {
   activeStepNumColor?: string;
   disabledStepNumColor?: string;
   completedCheckColor?: string;
+  showLabelAboveSteps?: boolean;
 }
 
 const StepIcon = ({
@@ -36,6 +37,7 @@ const StepIcon = ({
   activeStepNumColor = "black",
   disabledStepNumColor = "white",
   completedCheckColor = "white",
+  showLabelAboveSteps = false,
 }: StepIconProps) => {
   const { width } = useWindowDimensions();
 
@@ -86,7 +88,49 @@ const StepIcon = ({
   return (
     <View style={styles.stepIconContainer}>
       <View style={styles.stepIconInnerContainer}>
-        <View style={styles.stepIconCircleContainer}>
+        {showLabelAboveSteps && (
+          <View
+            style={[
+              styles.labelContainer,
+              {
+                paddingTop: "2%",
+                alignItems: "center",
+                flex: 1,
+                height: (width * 10) / 100,
+                maxHeight: 50,
+              },
+            ]}
+          >
+            <Text
+              style={[
+                styles.label,
+                labelStyle,
+                {
+                  width:
+                    totalSteps > 8 ? width / 7 - 4 : width / totalSteps - 4,
+                  color: isActiveStep
+                    ? labelStyle?.color
+                      ? labelStyle?.color
+                      : "black"
+                    : "transparent",
+                },
+              ]}
+              numberOfLines={2}
+              minimumFontScale={0.9}
+              adjustsFontSizeToFit={Platform.OS === "ios" ? true : false}
+            >
+              {label}
+            </Text>
+          </View>
+        )}
+        <View
+          style={[
+            styles.stepIconCircleContainer,
+            showLabelAboveSteps && {
+              paddingBottom: "4%",
+            },
+          ]}
+        >
           <View
             style={[
               {
@@ -110,37 +154,40 @@ const StepIcon = ({
             </Text>
           </View>
         </View>
-        <View
-          style={[
-            styles.labelContainer,
-            {
-              alignItems: "center",
-              flex: 1,
-              height: (width * 10) / 100,
-              maxHeight: 50,
-            },
-          ]}
-        >
-          <Text
+        {!showLabelAboveSteps && (
+          <View
             style={[
-              styles.label,
-              labelStyle,
+              styles.labelContainer,
               {
-                width: totalSteps > 8 ? width / 7 - 4 : width / totalSteps - 4,
-                color: isActiveStep
-                  ? labelStyle?.color
-                    ? labelStyle?.color
-                    : "black"
-                  : "transparent",
+                alignItems: "center",
+                flex: 1,
+                height: (width * 10) / 100,
+                maxHeight: 50,
               },
             ]}
-            numberOfLines={2}
-            minimumFontScale={0.9}
-            adjustsFontSizeToFit={Platform.OS === "ios" ? true : false}
           >
-            {label}
-          </Text>
-        </View>
+            <Text
+              style={[
+                styles.label,
+                labelStyle,
+                {
+                  width:
+                    totalSteps > 8 ? width / 7 - 4 : width / totalSteps - 4,
+                  color: isActiveStep
+                    ? labelStyle?.color
+                      ? labelStyle?.color
+                      : "black"
+                    : "transparent",
+                },
+              ]}
+              numberOfLines={2}
+              minimumFontScale={0.9}
+              adjustsFontSizeToFit={Platform.OS === "ios" ? true : false}
+            >
+              {label}
+            </Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -171,7 +218,6 @@ const styles = StyleSheet.create({
   },
   labelContainer: {
     width: "100%",
-    paddingTop: "2%",
   },
   label: {
     textAlign: "center",

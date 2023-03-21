@@ -6,6 +6,7 @@ import React, {
   useContext,
   ReactNode,
   ReactElement,
+  useMemo,
 } from "react";
 import {
   LayoutRectangle,
@@ -45,6 +46,7 @@ export interface ProcessFlowProps
   previousButtonDisabled?: boolean;
   removeButtonRow?: boolean;
   footerComponent?: ReactNode;
+  showLabelAboveSteps?: boolean;
 }
 
 const ProcessFlow = ({
@@ -70,6 +72,7 @@ const ProcessFlow = ({
   removeButtonRow = false,
   footerComponent,
   labelStyle,
+  showLabelAboveSteps = false,
   ...props
 }: ProcessFlowProps) => {
   const { activeStep, currentStep, numberOfSteps, totalSteps } =
@@ -126,7 +129,7 @@ const ProcessFlow = ({
           }}
         >
           <StepIcon
-            {...props}
+            {...{ ...props, showLabelAboveSteps }}
             stepNumber={i + 1}
             label={renderChildren[i]?.props?.label ?? ""}
             labelStyle={
@@ -177,6 +180,18 @@ const ProcessFlow = ({
     onSubmit && onSubmit();
   };
 
+  const indicatorTop = useMemo(
+    () =>
+      showLabelAboveSteps
+        ? (width * 10) / 100 >= 50
+          ? 77
+          : (width * 27) / 100 / 2
+        : (width * 10) / 100 >= 50
+        ? 30
+        : (width * 10) / 100 / 2,
+    [width, showLabelAboveSteps]
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <View
@@ -203,7 +218,7 @@ const ProcessFlow = ({
               style={[
                 styles.stepIndicatorOuter,
                 {
-                  top: (width * 10) / 100 >= 50 ? 30 : (width * 10) / 100 / 2,
+                  top: indicatorTop,
                   width: stepIconWidthOffSet[totalSteps - 1]?.layout?.x,
                 },
               ]}
