@@ -264,7 +264,7 @@ const ProcessFlow = ({
                 styles.stepIndicatorOuter,
                 {
                   // Scrollable
-                  top: (width * 10) / 100 >= 50 ? 30 : (width * 10) / 100 / 2,
+                  top: indicatorTop,
                   width: stepIconWidthOffSet[totalSteps - 1]?.layout?.x,
                 },
               ]}
